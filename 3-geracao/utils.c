@@ -1,4 +1,10 @@
 // Tabela de Simbolos
+
+enum{
+    INT,
+    LOG
+};
+
 #define TAM_TAB 100
 
 struct elemTabSimbolos {
@@ -35,6 +41,20 @@ void insereSimbolo (struct elemTabSimbolos elem){
     tabSimb[posTab++] = elem;
 }
 
+void mostraTabela(){
+    puts("Tabela de Simbolos");
+    puts("------------------");
+    printf("%30s | %s | %s\n", "ID", "END", "TIP");
+    for (int i = 0; i < 50; i++)
+        printf("-");
+    for (int i = 0; i < posTab; i++)
+        printf("\n%30s | %3d | %s",
+            tabSimb[i].id,
+            tabSimb[i].end,
+            tabSimb[i].tip == INT ? "INT" : "LOG");
+    puts("");
+}
+
 // Pilha Semantica
 #define TAM_PIL 100
 int pilha[TAM_PIL];
@@ -52,4 +72,14 @@ int desempilha (void){
         yyerror("Pilha semantica vazia!");
     }
     return pilha[topo--];
+}
+
+//tipo1 e tipo2 são os esperados na expressão
+//ret é o tipo que será empilhado com resultado da expressão
+void testaTipo (int tipo1, int tipo2, int ret){
+    int t1 = desempilha();
+    int t2 = desempilha();
+    if(t1 != tipo1 || t2 != tipo2)
+        yyerror ("Incompatibilidade de tipo!");
+    empilha(ret);
 }

@@ -1,5 +1,7 @@
 programa teste1
     inteiro a
+    logico x y
+    inteiro w
 inicio
     leia a
     escreva a * 10
